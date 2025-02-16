@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Solana Goal Tracker</title>
   <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <!-- Import Poppins font from Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <!-- Import Orbitron font from Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    /* Apply Poppins font */
+    /* Apply Orbitron font */
     body {
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Orbitron', sans-serif;
       background-color: #0A0A0B; /* Dark black background */
       color: #FFFFFF; /* White text */
       padding: 20px;
@@ -26,13 +26,20 @@
       padding: 30px;
       background-color: #1A1A1C; /* Slightly lighter black for container */
       border-radius: 15px;
-      box-shadow: 0 4px 15px rgba(88, 200, 141, 0.2); /* Green shadow */
+      box-shadow: 0 0 15px rgba(88, 200, 141, 0.5); /* Green glow */
       text-align: center;
     }
     h1 {
       color: #58C88D; /* Vibrant green */
       margin-bottom: 20px;
       font-size: 2em;
+      font-weight: 600;
+      text-shadow: 0 0 5px #58C88D; /* Green glow */
+    }
+    label {
+      display: block;
+      margin: 10px 0 5px;
+      color: #58C88D; /* Vibrant green */
       font-weight: 600;
     }
     input {
@@ -44,11 +51,12 @@
       color: #FFFFFF; /* White text */
       border-radius: 8px;
       font-size: 16px;
-      font-family: 'Poppins', sans-serif;
-      transition: border-color 0.3s ease;
+      font-family: 'Orbitron', sans-serif;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
     }
     input:focus {
-      border-color: #58C88D; /* Vibrant green on focus */
+      border-color: #00FF00; /* Neon green on focus */
+      box-shadow: 0 0 10px #00FF00; /* Neon green glow */
       outline: none;
     }
     button {
@@ -59,13 +67,14 @@
       border-radius: 8px;
       cursor: pointer;
       font-size: 16px;
-      font-family: 'Poppins', sans-serif;
+      font-family: 'Orbitron', sans-serif;
       font-weight: 600;
-      transition: background-color 0.3s ease, transform 0.3s ease;
+      transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
     }
     button:hover {
-      background-color: #45A876; /* Darker green on hover */
+      background-color: #00FF00; /* Neon green on hover */
       transform: scale(1.05);
+      box-shadow: 0 0 15px #00FF00; /* Neon green glow */
     }
     .result {
       margin-top: 20px;
