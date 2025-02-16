@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Solana Goal Tracker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #0f0f23;
+      color: #00ff00;
+      padding: 20px;
+    }
+    .container {
+      max-width: 400px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    h1 {
+      color: #00ff00;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #00ff00;
+      background-color: #0f0f23;
+      color: #00ff00;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #00ff00;
+      color: #0f0f23;
+      border: none;
+      cursor: pointer;
+    }
+    .result {
+      margin-top: 20px;
+      font-size: 1.2em;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Solana Goal Tracker</h1>
+    <label for="currentSol">Current SOL Balance:</label>
+    <input type="number" id="currentSol" placeholder="Enter your current SOL balance">
+
+    <label for="goalSol">Goal SOL Amount:</label>
+    <input type="number" id="goalSol" placeholder="Enter your goal SOL amount">
+
+    <label for="returnPerTrade">Average Return Per Trade (%):</label>
+    <input type="number" id="returnPerTrade" placeholder="Enter average return per trade">
+
+    <button onclick="calculateTrades()">Calculate</button>
+
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    async function calculateTrades() {
+      const currentSol = parseFloat(document.getElementById('currentSol').value);
+      const goalSol = parseFloat(document.getElementById('goalSol').value);
+      const returnPerTrade = parseFloat(document.getElementById('returnPerTrade').value);
+
+      if (isNaN(currentSol) || isNaN(goalSol) || isNaN(returnPerTrade)) {
+        alert("Please fill in all fields with valid numbers.");
+        return;
+      }
+
+      // Fetch current SOL price in USD
+      const solPrice = await fetchSolPrice();
+      if (!solPrice) {
+        alert("Failed to fetch SOL price. Please try again later.");
+        return;
+      }
+
+      let trades = 0;
+      let currentAmount = currentSol;
+
+      while (currentAmount < goalSol) {
+        currentAmount *= (1 + returnPerTrade / 100);
+        trades++;
+      }
+
+      const currentUSD = currentSol * solPrice;
+      const goalUSD = goalSol * solPrice;
+
+      document.getElementById('result').innerHTML = `
+        <p>Trades Required: <strong>${trades}</strong></p>
+        <p>Current Value: <strong>${currentUSD.toFixed(2)} USD</strong></p>
+        <p>Goal Value: <strong>${goalUSD.toFixed(2)} USD</strong></p>
+      `;
+    }
+
+    async function fetchSolPrice() {
+      try {
+        const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=solana&vs_currencies=usd');
+        const data = await response.json();
+        return data.solana.usd;
+      } catch (error) {
+        console.error("Error fetching SOL price:", error);
+        return null;
+      }
+    }
+  </script>
+</body>
+</html>
