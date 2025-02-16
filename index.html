@@ -6,8 +6,11 @@
   <title>Solana Goal Tracker</title>
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <style>
+    /* Matrix-style font */
+    @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;700&display=swap');
+
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Source Code Pro', monospace;
       background-color: #0f0f23;
       color: #00ff00;
       padding: 20px;
@@ -29,6 +32,7 @@
     h1 {
       color: #00ff00;
       margin-bottom: 20px;
+      font-size: 2em;
     }
     input {
       width: 100%;
@@ -39,6 +43,7 @@
       color: #00ff00;
       border-radius: 8px;
       font-size: 16px;
+      font-family: 'Source Code Pro', monospace;
     }
     button {
       padding: 10px 20px;
@@ -48,6 +53,7 @@
       border-radius: 8px;
       cursor: pointer;
       font-size: 16px;
+      font-family: 'Source Code Pro', monospace;
       transition: background-color 0.3s ease, transform 0.3s ease;
     }
     button:hover {
@@ -64,6 +70,21 @@
     .result.show {
       opacity: 1;
       transform: translateY(0);
+    }
+    .pepe-img {
+      margin-top: 20px;
+      width: 100px;
+      border-radius: 10px;
+      animation: float 3s ease-in-out infinite;
+    }
+    /* Floating animation for Pepe */
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
     }
   </style>
 </head>
@@ -82,7 +103,16 @@
     <button onclick="calculateTrades()">Calculate</button>
 
     <div class="result" id="result"></div>
+
+    <!-- Pepe meme image -->
+    <img src="https://i.imgur.com/3QZ7Z7M.png" alt="Pepe meme" class="pepe-img">
   </div>
+
+  <!-- Audio element for the sound effect -->
+  <audio id="chaChingSound">
+    <source src="cha-ching.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
 
   <script>
     async function calculateTrades() {
@@ -120,6 +150,10 @@
         <p>Goal Value: <strong>${goalUSD.toFixed(2)} USD</strong></p>
       `;
       resultDiv.classList.add('show');
+
+      // Play the "cha-ching" sound
+      const chaChingSound = document.getElementById('chaChingSound');
+      chaChingSound.play();
     }
 
     async function fetchSolPrice() {
