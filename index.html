@@ -153,7 +153,10 @@
 
       // Play the "cha-ching" sound
       const chaChingSound = document.getElementById('chaChingSound');
-      chaChingSound.play();
+      chaChingSound.play().catch(error => {
+        console.error("Error playing sound:", error);
+        alert("Click the button again to play the sound.");
+      });
     }
 
     async function fetchSolPrice() {
