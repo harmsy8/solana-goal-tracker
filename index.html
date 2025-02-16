@@ -11,14 +11,24 @@
       background-color: #0f0f23;
       color: #00ff00;
       padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
     }
     .container {
       max-width: 400px;
-      margin: 0 auto;
+      width: 100%;
+      padding: 20px;
+      background-color: #1c1c34;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0, 255, 0, 0.2);
       text-align: center;
     }
     h1 {
       color: #00ff00;
+      margin-bottom: 20px;
     }
     input {
       width: 100%;
@@ -27,17 +37,33 @@
       border: 1px solid #00ff00;
       background-color: #0f0f23;
       color: #00ff00;
+      border-radius: 8px;
+      font-size: 16px;
     }
     button {
       padding: 10px 20px;
       background-color: #00ff00;
       color: #0f0f23;
       border: none;
+      border-radius: 8px;
       cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+    button:hover {
+      background-color: #00cc00;
+      transform: scale(1.05);
     }
     .result {
       margin-top: 20px;
       font-size: 1.2em;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .result.show {
+      opacity: 1;
+      transform: translateY(0);
     }
   </style>
 </head>
@@ -87,11 +113,13 @@
       const currentUSD = currentSol * solPrice;
       const goalUSD = goalSol * solPrice;
 
-      document.getElementById('result').innerHTML = `
+      const resultDiv = document.getElementById('result');
+      resultDiv.innerHTML = `
         <p>Trades Required: <strong>${trades}</strong></p>
         <p>Current Value: <strong>${currentUSD.toFixed(2)} USD</strong></p>
         <p>Goal Value: <strong>${goalUSD.toFixed(2)} USD</strong></p>
       `;
+      resultDiv.classList.add('show');
     }
 
     async function fetchSolPrice() {
